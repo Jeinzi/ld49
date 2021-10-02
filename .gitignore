@@ -1,3 +1,7 @@
+build/
+.cache/
+ld49.md
+
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles
