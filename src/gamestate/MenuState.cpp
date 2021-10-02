@@ -1,4 +1,5 @@
 #include "MenuState.hpp"
+#include "Resources.hpp"
 
 
 MenuState::MenuState(GameStateManager& gsm, World& world)
@@ -109,6 +110,9 @@ void MenuState::keyPressed(sf::Event event) {
     }
     else if (menuEntryIds[selectedItem] == "menu_start") {
       gsm.changeState(GameStateManager::State::Level);
+    }
+    else if (menuEntryIds[selectedItem] == "menu_options") {
+      Resources::loadLanguage("lang_de_DE");
     }
   }
 }

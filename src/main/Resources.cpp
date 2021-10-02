@@ -5,7 +5,7 @@
 bool Resources::isLoaded = false;
 std::unordered_map<std::string, sf::Font> Resources::fonts;
 std::unordered_map<std::string, std::string> Resources::paths;
-std::unordered_map<std::string, std::string> Resources::texts;
+std::unordered_map<std::string, std::wstring> Resources::texts;
 std::unordered_map<std::string, sf::Texture> Resources::textures;
 std::unordered_map<std::string, sf::SoundBuffer> Resources::soundEffects;
 std::unordered_map<std::string, sf::Music> Resources::music;
@@ -19,6 +19,7 @@ void Resources::load() {
   // Paths.
   paths["airship_properties"] = "res/sprites/airship.json";
   paths["lang_en_US"] = "res/lang/en_US.json";
+  paths["lang_de_DE"] = "res/lang/de_DE.json";
 
   // Texts.
   loadLanguage("lang_en_US");
@@ -35,8 +36,12 @@ void Resources::load() {
 
 
 void Resources::loadLanguage(std::string const& id) {
+  if (!isLoaded) {
+    load();
+  }
+
   char readBuffer[65536];
-  auto langPath = Resources::getPath("lang_en_US");
+  auto langPath = Resources::getPath(id);
   FILE* propertyFile = fopen(langPath.c_str(), "r");
   rapidjson::FileReadStream propertyStream(propertyFile, readBuffer, sizeof(readBuffer));
 
@@ -56,7 +61,9 @@ void Resources::loadLanguage(std::string const& id) {
       // Todo error
     }
 
-    texts[it->name.GetString()] = it->value.GetString();
+    std::string s = it->value.GetString();
+    std::wstring ws = std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>, wchar_t>{}.from_bytes(s);
+    texts[it->name.GetString()] = ws;
   }
 }
 
@@ -76,6 +83,13 @@ std::string Resources::getPath(std::string const& id) {
   return paths.at(id);
 }
 
+std::wstring Resources::getText(std::string const& id) {
+  if (!isLoaded) {
+    load();
+  }
+  return texts.at(id);
+}
+
 
 sf::Texture const& Resources::getTexture(std::string const& id) {
   if (!isLoaded) {
@@ -92,17 +106,10 @@ sf::SoundBuffer const& Resources::getSoundBuffer(std::string const& id) {
   return soundEffects.at(id);
 }
 
+
 sf::Music& Resources::getMusic(std::string const& id) {
   if (!isLoaded) {
     load();
   }
   return music.at(id);
-}
-
-
-std::string Resources::getText(std::string const& id) {
-  if (!isLoaded) {
-    load();
-  }
-  return texts.at(id);
 }
