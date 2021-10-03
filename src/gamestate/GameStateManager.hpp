@@ -1,6 +1,7 @@
 #ifndef _GAMESTATEMANAGER_HPP
 #define _GAMESTATEMANAGER_HPP
 
+#include <SFML/System/Vector2.hpp>
 #include <array>
 #include "SFML/Graphics.hpp"
 
@@ -26,6 +27,7 @@ class GameStateManager : public sf::Drawable {
     void keyPressed(sf::Event event);
     void mouseButtonPressed(sf::Event event, sf::Vector2f worldCoordinates);
     void mouseWheelMoved(sf::Event event);
+    void resize(sf::Vector2u const screenSize);
     void exit();
 
   private:

@@ -21,20 +21,18 @@ void MenuState::init() {
 
 
 void MenuState::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-  //auto view = target.getView();
-  //view.zoom(zoom);
-  //zoom = 1;
-  //target.setView(view);
+  target.draw(world, states);
 
-  auto view = target.getView();
-  target.setView(target.getDefaultView());
+  auto oldView = target.getView();
+  auto windowSize = target.getSize();
+  sf::Vector2f viewSize(windowSize.x, windowSize.y);
+  sf::Vector2f center(windowSize.x / 2.f, windowSize.y / 2.f);
+  sf::View view(center, viewSize);
+  target.setView(view);
 
   // Get screen size.
   auto w = target.getSize().x;
   auto h = target.getSize().y;
-
-  // Draw world.
-  target.draw(world, states);
 
   // Game title.
   sf::Text title;
@@ -73,12 +71,12 @@ void MenuState::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     pos.y += 40;
   }
 
-  target.setView(view);
+  target.setView(oldView);
 }
 
 
 void MenuState::update(sf::Time time) {
-  //player.update(time);
+  world.update(time);
 }
 
 

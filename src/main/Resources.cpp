@@ -26,6 +26,7 @@ void Resources::load() {
   
   // Textures.
   textures["airship"].loadFromFile("res/sprites/airship.png");
+  textures["earth-1"].loadFromFile("res/sprites/earth-1.png");
 
   // Sound effects.
   //soundEffects["jump0"].loadFromFile("res/sfx/jump0.ogg");

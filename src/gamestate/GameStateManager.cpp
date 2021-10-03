@@ -57,3 +57,7 @@ void GameStateManager::mouseWheelMoved(sf::Event event) {
 void GameStateManager::exit() {
   continueExecution = false;
 }
+
+void GameStateManager::resize(sf::Vector2u const screenSize) {
+  world.resize(screenSize);
+}

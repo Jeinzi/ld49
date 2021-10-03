@@ -5,6 +5,7 @@ However, the following files are not made by me and therefore carry other licens
 
 ## Graphics
 - [airship.png](https://opengameart.org/content/little-spaceship-game-character) by [bevouliin.com](https://bevouliin.com/) is licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
+- [earth-1.png](https://www.flickr.com/photos/53460575@N03/7193230092) by [Kevin M. Gill](https://www.flickr.com/photos/53460575@N03) is licensed under [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/). The original image has been stylized, vectorized and manually edited.
 
 ## Music
 - [Misty.ogg](https://soundcloud.com/cybersdf/misty) by [CyberSDF](https://soundcloud.com/cybersdf) is licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
