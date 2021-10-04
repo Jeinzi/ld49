@@ -23,7 +23,7 @@ class GameStateManager : public sf::Drawable {
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     bool update(sf::Time time);
-    void changeState(State state);
+    void changeState(State state, bool renewCurrentState = false);
     void keyPressed(sf::Event event);
     void mouseButtonPressed(sf::Event event, sf::Vector2f worldCoordinates);
     void mouseWheelMoved(sf::Event event);

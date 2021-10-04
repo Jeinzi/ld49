@@ -22,10 +22,9 @@ void LevelWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 }
 
 
-void LevelWorld::update(sf::Time time) {
+bool LevelWorld::update(sf::Time time) {
   World::update(time);
   earthShape.setOrigin(earthRadius, earthRadius);
-  plane.update(time);
   
   //Clouds.
   for (size_t i = 0; i < clouds.size(); ++i) {
@@ -35,6 +34,8 @@ void LevelWorld::update(sf::Time time) {
       c = Cloud();
     }
   }
+
+  return plane.update(time);
 }
 
 

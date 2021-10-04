@@ -24,11 +24,12 @@ void World::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 }
 
 
-void World::update(sf::Time time) {
+bool World::update(sf::Time time) {
   timeMins += time.asSeconds() / 60;
   earthShape.setRadius(earthRadius);
   earthShape.setPosition(earthPosition);
   earthShape.setRotation(-timeMins / dayLengthMins * 360);
+  return true;
 }
 
 

@@ -1,8 +1,15 @@
 #include "Plane.hpp"
+#include "Resources.hpp"
+#include <SFML/Audio/Music.hpp>
+#include <SFML/Audio/Sound.hpp>
+#include <cmath>
+#include <iostream>
+#include <math.h>
 
 
 Plane::Plane()
-  : vMax(150), position(0, 300), v(0, 0), planeSprite(Resources::getTexture("airship"))
+  : vMax(150), position(0, 300), v(0, 0), planeSprite(Resources::getTexture("airship")),
+    explosion("explosion", {50}), explosionSound(Resources::getSoundBuffer("explosion"))
 {
   fuelBar.setPosition({10, 10});
   fuelBar.setSize({200, 20});
@@ -15,11 +22,19 @@ Plane::Plane()
   auto ox = b.width / 2;
   auto oy = b.height / 2;
   planeSprite.setOrigin(ox, oy);
+
+  explosion.setIterations(1);
+  //explosionSound.setLoop(false);
 }
 
 
 void Plane::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-  target.draw(planeSprite, states);
+  if (doExplode) {
+    explosion.draw(target, states);
+  }
+  else {
+    target.draw(planeSprite, states);
+  }
 
   // Change view for overlays.
   auto oldView = target.getView();
@@ -36,7 +51,7 @@ void Plane::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 }
 
 
-void Plane::update(sf::Time time) {
+bool Plane::update(sf::Time time) {
   totalTime += time.asSeconds();
   //auto modifiedPosition = position;
   //modifiedPosition.y += 100 * std::sin(totalTime);
@@ -51,10 +66,11 @@ void Plane::update(sf::Time time) {
   float k2 = 0.6;
 
   // Static stability.
-  //da = -k2 * angle;
+  //da = -k2 * angle * time.asSeconds();
 
   // Static instability.
   da = k2 * angle * time.asSeconds();
+  //std::cout << da / time.asSeconds() << std::endl;
 
   // Dynamic instability.
   //auto dda = da - lastAngleChange;
@@ -62,16 +78,53 @@ void Plane::update(sf::Time time) {
 
   angle += da;
 
-  v.y = vMax * std::sin(angle);
-  v.x = vMax * std::sin(angle);
-  position += time.asSeconds() * v;
-  planeSprite.setPosition(position);
 
+  // Explosion triggers.
+  if (std::abs(da / time.asSeconds()) > 2) {
+    doExplode = true;
+  }
+  if (position.y > windowSize.y * (1 - 0.14)) {
+    doExplode = true;
+  }
+
+  // Explosion action.
+  if (doExplode) {
+    explosion.setPosition(position, true);
+    explosion.update(time);
+
+    auto& music = Resources::getMusic("misty");
+    if (music.getStatus() == sf::Music::Status::Playing) {
+      music.pause();
+    }
+
+    if (hasExplosionSoundPlayed &&
+        explosionSound.getStatus() != sf::Sound::Status::Playing)
+    {
+      return false;
+    }
+
+    if (explosionSound.getStatus() != sf::Sound::Status::Playing) {
+      explosionSound.play();
+      hasExplosionSoundPlayed = true;
+    }
+  }
+
+  
+  // Movement.
+  if (!doExplode) {
+    v.y = vMax * std::sin(angle);
+    v.x = vMax * std::sin(angle);
+    position += time.asSeconds() * v;
+    planeSprite.setPosition(position);
+  }
+
+  return true;
 }
 
 
 void Plane::resize(sf::Vector2u const windowSize) {
   position.x = windowSize.x / 2.f;
+  this->windowSize = windowSize;
 }
 
 

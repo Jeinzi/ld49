@@ -1,4 +1,5 @@
 #include "LevelState.hpp"
+#include "GameState.hpp"
 
 
 LevelState::LevelState(GameStateManager& gsm)
@@ -18,8 +19,9 @@ void LevelState::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 
 void LevelState::update(sf::Time time) {
-  world.update(time);
-  jerrycan.update(time);
+  if (!world.update(time)) {
+    gsm.changeState(GameStateManager::State::Menu, true);
+  }
 }
 
 

@@ -3,9 +3,8 @@
 
 Animation::Animation(std::string const& name,
                      std::vector<unsigned int> delaysMs)
-  : currentFrame(0), timeSinceFrameChangeMs(0),
-    spriteSet(Resources::getTexture(name)) {
-
+  : spriteSet(Resources::getTexture(name))
+{
   char readBuffer[65536];
   std::string propertyPath = Resources::getPath(name + "_properties");
   FILE* propertyFile = fopen(propertyPath.c_str(), "r");
@@ -50,7 +49,8 @@ Animation::Animation(std::string const& name,
 
 
 void Animation::update(sf::Time time) {
-  if (frames[currentFrame].delayMs == 0) {
+  if (frames[currentFrame].delayMs == 0 ||
+      iteration >= nIterations) {
     return;
   }
   timeSinceFrameChangeMs += time.asMilliseconds();
@@ -58,6 +58,7 @@ void Animation::update(sf::Time time) {
     ++currentFrame;
     if (currentFrame == frames.size()) {
       currentFrame = 0;
+      ++iteration;
     }
     currentSprite.setTextureRect(frames[currentFrame].textureRectangle);
     timeSinceFrameChangeMs = 0;
@@ -66,11 +67,18 @@ void Animation::update(sf::Time time) {
 
 
 void Animation::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+  if (iteration >= nIterations) {
+    return;
+  }
   target.draw(currentSprite, states);
 }
 
 
-void Animation::setPosition(sf::Vector2f const& pos) {
+void Animation::setPosition(sf::Vector2f pos, bool isCentered) {
+  if (isCentered) {
+    auto b = currentSprite.getLocalBounds();
+    currentSprite.setOrigin(b.width / 2, b.height / 2);
+  }
   currentSprite.setPosition(pos);
 }
 
@@ -93,6 +101,11 @@ void Animation::flipHorizontal(bool flipped) {
     r.width = -r.width;
   }
   currentSprite.setTextureRect(frames[currentFrame].textureRectangle);
+}
+
+
+void Animation::setIterations(unsigned int nIterations) {
+  this->nIterations = nIterations;
 }
 
 

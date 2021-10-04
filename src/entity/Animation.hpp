@@ -16,9 +16,10 @@ class Animation : public sf::Drawable {
               std::vector<unsigned int> delaysMs);
     void update(sf::Time time);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-    void setPosition(sf::Vector2f const& pos);
+    void setPosition(sf::Vector2f pos, bool isCentered = false);
     void setHeight(float height);
     void flipHorizontal(bool flipped);
+    void setIterations(unsigned int nIterations);
     sf::Vector2f getSize() const;
 
     Animation(Animation const&) = delete;
@@ -32,8 +33,10 @@ class Animation : public sf::Drawable {
       sf::IntRect textureRectangle;
     };
 
-    unsigned short currentFrame;
-    unsigned int timeSinceFrameChangeMs;
+    unsigned short currentFrame = 0;
+    unsigned int timeSinceFrameChangeMs = 0;
+    unsigned int iteration = 0;
+    unsigned int nIterations = 0;
     sf::Vector2f pos;
     sf::Vector2u size;
     sf::Sprite currentSprite;

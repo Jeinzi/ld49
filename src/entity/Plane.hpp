@@ -1,6 +1,7 @@
 #ifndef _PLANE_HPP
 #define _PLANE_HPP
 
+#include <SFML/System/Vector2.hpp>
 #include <cmath>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
@@ -28,11 +29,13 @@ class Plane : public sf::Drawable {
   public:
     Plane();
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-    void update(sf::Time time);
+    bool update(sf::Time time);
     void resize(sf::Vector2u const windowSize);
     void keyPressed(sf::Event e);
 
   private:
+    bool doExplode = false;
+    bool hasExplosionSoundPlayed = false;
     float angle = 0;
     float lastAngleChange = 0;
     float fuel;
@@ -44,7 +47,10 @@ class Plane : public sf::Drawable {
     DynamicStability dynamicStability;
     sf::Vector2f position;
     sf::Vector2f v;
+    sf::Vector2u windowSize;
     sf::Sprite planeSprite;
+    Animation explosion;
+    sf::Sound explosionSound;
     Bar fuelBar;
 };
 

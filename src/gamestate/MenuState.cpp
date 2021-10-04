@@ -18,7 +18,7 @@ void MenuState::init() {
   sf::Music& music = Resources::getMusic("misty");
   if (music.getStatus() != sf::Music::Status::Playing) {
     music.setLoop(true);
-    music.setVolume(75);
+    //music.setVolume(75);
     music.play();
   }
 }
