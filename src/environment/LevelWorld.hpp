@@ -3,6 +3,7 @@
 
 #include "World.hpp"
 #include "Plane.hpp"
+#include "Cloud.hpp"
 
 
 class LevelWorld : public World {
@@ -16,6 +17,7 @@ class LevelWorld : public World {
     void calculateEarthCenter(sf::Vector2u const windowSize) override;
 
     Plane plane;
+    std::vector<Cloud> clouds;
 };
 
 #endif

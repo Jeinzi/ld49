@@ -1,11 +1,13 @@
 #ifndef _PLANE_HPP
 #define _PLANE_HPP
 
+#include <cmath>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 
 #include "Bar.hpp"
 #include "Animation.hpp"
+#include "Resources.hpp"
 
 
 enum class StaticStability {
@@ -38,6 +40,7 @@ class Plane : public sf::Drawable {
     StaticStability staticStability;
     DynamicStability dynamicStability;
     sf::Vector2f position;
+    sf::Vector2f v;
     sf::Sprite planeSprite;
     Bar fuelBar;
 };

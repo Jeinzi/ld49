@@ -1,16 +1,23 @@
 #include "LevelWorld.hpp"
-#include <iostream>
 
 
 LevelWorld::LevelWorld() {
   skyColor = sf::Color(50, 110, 250, 255);
   timeMins = 0;
   dayLengthMins = 10;
+
+  for (int i = 0; i < 7; ++i) {
+    clouds.emplace_back();
+  }
 }
 
 
 void LevelWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const {
   World::draw(target, states);
+  for (auto const& c: clouds) {
+    c.draw(target, states);
+  }
+
   plane.draw(target, states);
 }
 
@@ -19,12 +26,24 @@ void LevelWorld::update(sf::Time time) {
   World::update(time);
   earthShape.setOrigin(earthRadius, earthRadius);
   plane.update(time);
+  
+  //Clouds.
+  for (size_t i = 0; i < clouds.size(); ++i) {
+    auto& c = clouds[i];
+    c.update(time);
+    if (!c.isVisible()) {
+      c = Cloud();
+    }
+  }
 }
 
 
 void LevelWorld::resize(sf::Vector2u const windowSize) {
   World::resize(windowSize);
   plane.resize(windowSize);
+  for (auto& c: clouds) {
+    c.resize(windowSize);
+  }
 }
 
 

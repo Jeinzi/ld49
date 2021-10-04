@@ -1,8 +1,4 @@
 #include "Plane.hpp"
-#include "Resources.hpp"
-#include <SFML/Graphics/Color.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
-#include <cmath>
 
 
 Plane::Plane()

@@ -4,8 +4,6 @@
 #include <cstdlib>
 #include <vector>
 
-#include "Plane.hpp"
-#include "Cloud.hpp"
 #include "Jerrycan.hpp"
 #include "Resources.hpp"
 #include "GameState.hpp"
@@ -29,7 +27,6 @@ class LevelState : public GameState {
     mutable float zoom;
     LevelWorld world;
     Jerrycan jerrycan;
-    std::vector<Cloud> clouds;
 };
 
 #endif
