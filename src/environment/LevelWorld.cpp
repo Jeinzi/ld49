@@ -4,12 +4,18 @@
 
 
 LevelWorld::LevelWorld() {
-  skyColor = sf::Color(50, 110, 250, 255);
   timeMins = 0;
   dayLengthMins = 5;
 
   for (int i = 0; i < 7; ++i) {
     clouds.emplace_back();
+  }
+
+  // The following block is duplication of the resize funtions. TODO
+  calculateEarthCenter(windowSize);
+  plane.resize(windowSize);
+  for (auto& c: clouds) {
+    c.resize(windowSize);
   }
 }
 

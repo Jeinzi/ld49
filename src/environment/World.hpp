@@ -1,6 +1,7 @@
 #ifndef _WORLD_HPP
 #define _WORLD_HPP
 
+#include <SFML/System/Vector2.hpp>
 #include <cmath>
 #include <SFML/Graphics.hpp>
 
@@ -23,6 +24,7 @@ class World : public sf::Drawable {
     float timeMins;
     sf::Color skyColor;
     sf::Vector2f earthPosition;
+    static sf::Vector2u windowSize;
     float earthRadius;
     StarField starField;
     sf::CircleShape earthShape;

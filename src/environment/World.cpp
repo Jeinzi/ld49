@@ -8,6 +8,8 @@
 #include <ostream>
 
 
+sf::Vector2u World::windowSize;
+
 World::World()
   : dayLengthMins(1), timeMins(0.45 * dayLengthMins), skyColor(sf::Color::Black),
     starField(100)
@@ -34,6 +36,7 @@ bool World::update(sf::Time time) {
 
 
 void World::resize(sf::Vector2u const windowSize) {
+  this->windowSize = windowSize;
   calculateEarthCenter(windowSize);
 }
 

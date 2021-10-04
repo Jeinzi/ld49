@@ -40,7 +40,6 @@ void GameStateManager::changeState(State state, bool renewCurrentState) {
   if (renewCurrentState) {
     delete states[(int)currentState];
     states[(int)currentState] = new LevelState(*this); // TODO this doesn't work generally
-    states[(int)currentState]->resize({1366, 768});
   }
   currentState = state;
   states[(int)currentState]->init();
