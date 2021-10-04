@@ -4,6 +4,8 @@
 
 LevelWorld::LevelWorld() {
   skyColor = sf::Color(50, 110, 250, 255);
+  timeMins = 0;
+  dayLengthMins = 10;
 }
 
 
@@ -20,22 +22,22 @@ void LevelWorld::update(sf::Time time) {
 }
 
 
+void LevelWorld::resize(sf::Vector2u const windowSize) {
+  World::resize(windowSize);
+  plane.resize(windowSize);
+}
+
+
 void LevelWorld::calculateEarthCenter(sf::Vector2u const windowSize) {
   auto w = windowSize.x;
   auto h = windowSize.y;
-  float heightSide = 0.15 * h;
+  float heightSide = 0.13 * h;
   float heightCenter = 0.2 * h;
   
   // Define two points and a vector connecting them.
   sf::Vector2f c(w / 2.f, h - heightCenter);
   sf::Vector2f s(w, h - heightSide);
   auto cs = s - c;
-
-  std::cout << "c.x: " << c.x << std::endl;
-  std::cout << "c.y: " << c.y << std::endl;
-  std::cout << "s.x: " << s.x << std::endl;
-  std::cout << "s.y: " << s.y << std::endl;
-
 
   // Calculate normals.
   sf::Vector2f ns(-cs.y, cs.x);
@@ -47,10 +49,4 @@ void LevelWorld::calculateEarthCenter(sf::Vector2u const windowSize) {
   earthRadius = (r.y + heightCenter) / 2;
   earthPosition.y = h + earthRadius - heightCenter;
   earthPosition.x = w / 2.f;
-
-  std::cout << "r.x: " << r.x << std::endl;
-  std::cout << "r.y: " << r.y << std::endl;
-  std::cout << "earthRadius: " << earthRadius << std::endl;
-  std::cout << "earthPosition.x: " << earthPosition.x << std::endl;
-  std::cout << "earthPosition.y: " << earthPosition.y << std::endl;
 }

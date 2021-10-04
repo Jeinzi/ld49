@@ -3,7 +3,6 @@
 
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
-#include <SFML/System/Vector2.hpp>
 
 #include "Bar.hpp"
 #include "Animation.hpp"
@@ -28,6 +27,7 @@ class Plane : public sf::Drawable {
     Plane();
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     void update(sf::Time time);
+    void resize(sf::Vector2u const windowSize);
 
   private:
     float angle = 0;
@@ -38,8 +38,7 @@ class Plane : public sf::Drawable {
     StaticStability staticStability;
     DynamicStability dynamicStability;
     sf::Vector2f position;
-    Animation animationDefault;
-    std::reference_wrapper<Animation> currentAnimation;
+    sf::Sprite planeSprite;
     Bar fuelBar;
 };
 

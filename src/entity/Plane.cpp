@@ -1,24 +1,29 @@
 #include "Plane.hpp"
+#include "Resources.hpp"
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <cmath>
 
 
 Plane::Plane()
-  : position(0, 500),
-    animationDefault("airship", {1}),
-    currentAnimation(animationDefault)
+  : position(0, 300), planeSprite(Resources::getTexture("airship"))
 {
-  currentAnimation.get().setHeight(50);
   fuelBar.setPosition({10, 10});
   fuelBar.setSize({200, 20});
   fuelBar.setOutlineThickness(3);
   fuelBar.setFillColor(sf::Color::Yellow);
+
+  float const s = 0.05;
+  planeSprite.setScale(s, s);
+  auto b = planeSprite.getLocalBounds();
+  auto ox = b.width / 2;
+  auto oy = b.height / 2;
+  planeSprite.setOrigin(ox, oy);
 }
 
 
 void Plane::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-  currentAnimation.get().draw(target, states);
+  target.draw(planeSprite, states);
 
   // Change view for overlays.
   auto oldView = target.getView();
@@ -37,8 +42,15 @@ void Plane::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 void Plane::update(sf::Time time) {
   totalTime += time.asSeconds();
-  currentAnimation.get().update(time);
   auto modifiedPosition = position;
   modifiedPosition.y += 100 * std::sin(totalTime);
-  currentAnimation.get().setPosition(modifiedPosition);
+  planeSprite.setPosition(modifiedPosition);
+
+  angle = std::cos(totalTime);
+  planeSprite.setRotation(angle / 2 / M_PI * 360);
+}
+
+
+void Plane::resize(sf::Vector2u const windowSize) {
+  position.x = windowSize.x / 2.f;
 }
