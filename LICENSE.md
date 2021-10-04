@@ -11,6 +11,9 @@ However, the following files are not made by me and therefore carry other licens
 ## Music
 - [Misty.ogg](https://soundcloud.com/cybersdf/misty) by [CyberSDF](https://soundcloud.com/cybersdf) is licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
 
+## Sound Effects
+- [explosion.ogg](https://freesound.org/people/tommccann/sounds/235968/) by [tommccann](https://freesound.org/people/tommccann/) is licensed under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/).
+
 ## Fonts
 Refer to res/fonts/OFL.txt for details on the Open Font License
 - [PressStart2P-Regular.ttf](https://fonts.google.com/specimen/Press+Start+2P) by CodeMan38 is licensed under the Open Font License.

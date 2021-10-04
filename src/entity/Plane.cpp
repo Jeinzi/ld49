@@ -11,9 +11,11 @@
 
 
 Plane::Plane()
-  : vMax(150), stability(-1), stabilityChange(1/60.f),
+  : fuelConsumption(1000/60.f),
+    vMax(150), stability(-1), stabilityChange(1/60.f),
     position(0, 300), v(0, 0), planeSprite(Resources::getTexture("airship")),
-    explosion("explosion", {50}), explosionSound(Resources::getSoundBuffer("explosion"))
+    explosion("explosion", {50}), explosionSound(Resources::getSoundBuffer("explosion")),
+    fuelBar(300, 1000)
 {
   fuelBar.setPosition({10, 10});
   fuelBar.setSize({200, 20});
@@ -73,11 +75,16 @@ bool Plane::update(sf::Time time) {
   //angle += static_cast<float>((rand() % (2*q)) - q) / q / 360 * 2 * M_PI;
   planeSprite.setRotation(angle / 2 / M_PI * 360);
 
-  float da;
-  float k1 = 0.01;
-  float k2 = 0.6;
+  // Fuel.
+  auto fuel = fuelBar.getValue();
+  fuel -= fuelConsumption * time.asSeconds();
+  fuelBar.setValue(fuel);
+  //fuelBar.update(time);
+
+
 
   // Static stability.
+  float da;
   //da = -k2 * angle * time.asSeconds();
   stability += stabilityChange * time.asSeconds();
   std::wstringstream ss;
@@ -98,10 +105,16 @@ bool Plane::update(sf::Time time) {
 
 
   // Explosion triggers.
+  // ToDo simplify
   if (std::abs(da / time.asSeconds()) > 2) {
     doExplode = true;
   }
   if (position.y > windowSize.y * (1 - 0.14)) {
+    doExplode = true;
+  }
+  if (fuelBar.getValue() <= 0) {
+    //v.y = -10;
+    //angle = 30.f / 360 * 2 * M_PI;
     doExplode = true;
   }
 

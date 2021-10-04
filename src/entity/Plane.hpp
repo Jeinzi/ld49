@@ -38,8 +38,6 @@ class Plane : public sf::Drawable {
     bool hasExplosionSoundPlayed = false;
     float angle = 0;
     float lastAngleChange = 0;
-    float fuel;
-    float maxFuel;
     float fuelConsumption;
     float totalTime = 0;
     float vMax;
