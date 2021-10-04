@@ -69,3 +69,8 @@ void LevelWorld::calculateEarthCenter(sf::Vector2u const windowSize) {
   earthPosition.y = h + earthRadius - heightCenter;
   earthPosition.x = w / 2.f;
 }
+
+
+void LevelWorld::keyPressed(sf::Event e) {
+  plane.keyPressed(e);
+}

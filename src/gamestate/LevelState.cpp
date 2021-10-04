@@ -28,11 +28,11 @@ void LevelState::resize(sf::Vector2u const windowSize) {
 }
 
 
-void LevelState::keyPressed(sf::Event event) {
-  // Confirm entry.
-  if (event.key.code == sf::Keyboard::Escape) {
+void LevelState::keyPressed(sf::Event e) {
+  if (e.key.code == sf::Keyboard::Escape) {
     gsm.changeState(GameStateManager::State::Menu);
   }
+  world.keyPressed(e);
 }
 
 

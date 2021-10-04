@@ -2,7 +2,7 @@
 
 
 Plane::Plane()
-  : position(0, 300), planeSprite(Resources::getTexture("airship"))
+  : vMax(150), position(0, 300), v(0, 0), planeSprite(Resources::getTexture("airship"))
 {
   fuelBar.setPosition({10, 10});
   fuelBar.setSize({200, 20});
@@ -38,15 +38,49 @@ void Plane::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 void Plane::update(sf::Time time) {
   totalTime += time.asSeconds();
-  auto modifiedPosition = position;
-  modifiedPosition.y += 100 * std::sin(totalTime);
-  planeSprite.setPosition(modifiedPosition);
+  //auto modifiedPosition = position;
+  //modifiedPosition.y += 100 * std::sin(totalTime);
 
-  angle = std::cos(totalTime);
+  //angle = std::cos(totalTime);
+  unsigned int const q = 100;
+  //angle += static_cast<float>((rand() % (2*q)) - q) / q / 360 * 2 * M_PI;
   planeSprite.setRotation(angle / 2 / M_PI * 360);
+
+  float da;
+  float k1 = 0.01;
+  float k2 = 0.6;
+
+  // Static stability.
+  //da = -k2 * angle;
+
+  // Static instability.
+  da = k2 * angle * time.asSeconds();
+
+  // Dynamic instability.
+  //auto dda = da - lastAngleChange;
+  //da = -k1 * dda - k2 * da;
+
+  angle += da;
+
+  v.y = vMax * std::sin(angle);
+  v.x = vMax * std::sin(angle);
+  position += time.asSeconds() * v;
+  planeSprite.setPosition(position);
+
 }
 
 
 void Plane::resize(sf::Vector2u const windowSize) {
   position.x = windowSize.x / 2.f;
+}
+
+
+void Plane::keyPressed(sf::Event e) {
+  float da = 3;
+  if (e.key.code == sf::Keyboard::Up) {
+    angle -= da / 360 * 2 * M_PI;
+  }
+  else if (e.key.code == sf::Keyboard::Down) {
+    angle += da / 360 * 2 * M_PI;
+  }
 }

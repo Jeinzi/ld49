@@ -12,6 +12,7 @@ class LevelWorld : public World {
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     void update(sf::Time time) override;
     void resize(sf::Vector2u const windowSize) override;
+    void keyPressed(sf::Event e);
 
   protected:
     void calculateEarthCenter(sf::Vector2u const windowSize) override;
