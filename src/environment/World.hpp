@@ -13,7 +13,7 @@ class World : public sf::Drawable {
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     virtual void update(sf::Time time);
-    void resize(sf::Vector2u const windowSize);
+    virtual void resize(sf::Vector2u const windowSize);
     //void setDayLength(float minutes);
     //void keyPressed(sf::Event event);
     //void mouseButtonPressed(sf::Event event, sf::Vector2f worldCoordinates);

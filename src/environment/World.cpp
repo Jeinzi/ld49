@@ -28,7 +28,6 @@ void World::update(sf::Time time) {
   timeMins += time.asSeconds() / 60;
   earthShape.setRadius(earthRadius);
   earthShape.setPosition(earthPosition);
-  earthShape.setOrigin(0.9 * earthRadius, 0.9 * earthRadius);
   earthShape.setRotation(-timeMins / dayLengthMins * 360);
 }
 

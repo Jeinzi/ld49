@@ -36,7 +36,7 @@ void LevelState::draw(sf::RenderTarget& target, sf::RenderStates states) const {
   }
 
   //jerrycan.draw(target, states);
-  plane.draw(target, states);
+  
 
   //target.setView(view);
 }
@@ -52,7 +52,6 @@ void LevelState::update(sf::Time time) {
     }
   }
   jerrycan.update(time);
-  plane.update(time);
 }
 
 

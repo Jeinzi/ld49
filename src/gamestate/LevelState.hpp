@@ -28,7 +28,6 @@ class LevelState : public GameState {
   private:
     mutable float zoom;
     LevelWorld world;
-    Plane plane;
     Jerrycan jerrycan;
     std::vector<Cloud> clouds;
 };
