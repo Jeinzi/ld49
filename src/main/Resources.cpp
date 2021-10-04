@@ -18,6 +18,8 @@ void Resources::load() {
 
   // Paths.
   paths["airship_properties"] = "res/sprites/airship.json";
+  //paths["beluga_properties"] = "res/sprites/beluga.json";
+  paths["jerrycan_properties"] = "res/sprites/jerrycan.json";
   paths["lang_en_US"] = "res/lang/en_US.json";
   paths["lang_de_DE"] = "res/lang/de_DE.json";
 
@@ -26,7 +28,13 @@ void Resources::load() {
   
   // Textures.
   textures["airship"].loadFromFile("res/sprites/airship.png");
+  //textures["beluga"].loadFromFile("res/sprites/beluga.png");
   textures["earth-1"].loadFromFile("res/sprites/earth-1.png");
+  textures["jerrycan"].loadFromFile("res/sprites/jerrycan.png");
+  textures["cloud-0"].loadFromFile("res/sprites/cloud-0.png");
+  textures["cloud-1"].loadFromFile("res/sprites/cloud-1.png");
+  textures["cloud-2"].loadFromFile("res/sprites/cloud-2.png");
+  textures["cloud-3"].loadFromFile("res/sprites/cloud-3.png");
 
   // Sound effects.
   //soundEffects["jump0"].loadFromFile("res/sfx/jump0.ogg");

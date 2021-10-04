@@ -1,8 +1,8 @@
 #ifndef _GAMESTATEMANAGER_HPP
 #define _GAMESTATEMANAGER_HPP
 
-#include <SFML/System/Vector2.hpp>
 #include <array>
+#include "SFML/System.hpp"
 #include "SFML/Graphics.hpp"
 
 #include "GameState.hpp"
@@ -15,7 +15,8 @@ class GameStateManager : public sf::Drawable {
   public:
     enum class State {
       Menu,
-      Level
+      Level,
+      TransitionIn
     };
 
     GameStateManager();

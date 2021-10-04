@@ -7,6 +7,7 @@
 // declaration does not work.
 #include "MenuState.hpp"
 #include "LevelState.hpp"
+#include "TransitionInState.hpp"
 
 
 GameStateManager::GameStateManager()
@@ -14,6 +15,7 @@ GameStateManager::GameStateManager()
   states.reserve(2);
   states.push_back(new MenuState(*this, world));
   states.push_back(new LevelState(*this, world));
+  states.push_back(new TransitionInState(*this, world));
 
   changeState(State::Menu);
 }

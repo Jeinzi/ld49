@@ -1,5 +1,7 @@
 #include "MenuState.hpp"
 #include "Resources.hpp"
+#include <SFML/Audio/Music.hpp>
+#include <SFML/Audio/Sound.hpp>
 
 
 MenuState::MenuState(GameStateManager& gsm, World& world)
@@ -14,9 +16,11 @@ MenuState::~MenuState() {}
 
 void MenuState::init() {
   sf::Music& music = Resources::getMusic("misty");
-  music.setLoop(true);
-  music.setVolume(75);
-  music.play();
+  if (music.getStatus() != sf::Music::Status::Playing) {
+    music.setLoop(true);
+    music.setVolume(75);
+    music.play();
+  }
 }
 
 
@@ -107,7 +111,7 @@ void MenuState::keyPressed(sf::Event event) {
       gsm.exit();
     }
     else if (menuEntryIds[selectedItem] == "menu_start") {
-      gsm.changeState(GameStateManager::State::Level);
+      gsm.changeState(GameStateManager::State::TransitionIn);
     }
     else if (menuEntryIds[selectedItem] == "menu_options") {
       Resources::loadLanguage("lang_de_DE");

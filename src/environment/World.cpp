@@ -12,28 +12,24 @@ World::World()
   : dayLengthMins(1), timeMins(0.45 * dayLengthMins), skyColor(50, 110, 250, 255),
     starField(100)
 {
-
+  earthShape.setTexture(&Resources::getTexture("earth-1"));
+  earthShape.setPointCount(100);
 }
 
 
 void World::draw(sf::RenderTarget &target, sf::RenderStates states) const {
   target.clear(sf::Color::Black);
   starField.draw(target, states);
-  
-  // Draw earth.
-  sf::CircleShape e;
-  e.setRadius(earthRadius);
-  e.setPosition(earthPosition);
-  e.setPointCount(200);
-  e.setTexture(&Resources::getTexture("earth-1"));
-  e.setOrigin(0.9 * earthRadius, 0.9 * earthRadius);
-  e.setRotation(timeMins / dayLengthMins * 360);
-  target.draw(e, states);
+  target.draw(earthShape, states);
 }
 
 
 void World::update(sf::Time time) {
   timeMins += time.asSeconds() / 60;
+  earthShape.setRadius(earthRadius);
+  earthShape.setPosition(earthPosition);
+  earthShape.setOrigin(0.9 * earthRadius, 0.9 * earthRadius);
+  earthShape.setRotation(-timeMins / dayLengthMins * 360);
 }
 
 

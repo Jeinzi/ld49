@@ -1,8 +1,4 @@
 #include "StarField.hpp"
-#include <SFML/Graphics/Color.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/System/Vector2.hpp>
-#include <iostream>
 
 
 StarField::StarField(unsigned int n) {

@@ -1,22 +1,22 @@
-#ifndef _LEVELSTATE_HPP
-#define _LEVELSTATE_HPP
+#ifndef _TRANSITIONINSTATE_HPP
+#define _TRANSITIONINSTATE_HPP
 
-#include <cstdlib>
+#include <list>
 #include <vector>
+#include <cstdlib>
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "World.hpp"
-#include "Plane.hpp"
-#include "Cloud.hpp"
-#include "Jerrycan.hpp"
 #include "Resources.hpp"
 #include "GameState.hpp"
 #include "GameStateManager.hpp"
 
 
-class LevelState : public GameState {
+class TransitionInState : public GameState {
   public:
-    LevelState(GameStateManager& gsm, World& world);
-    ~LevelState();
+    TransitionInState(GameStateManager& gsm, World& world);
+    ~TransitionInState();
 
     void init() override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -25,11 +25,10 @@ class LevelState : public GameState {
     void mouseButtonPressed(sf::Event event, sf::Vector2f worldCoordinates) override;
 
   private:
+    float cumulatedTransitionTime;
     mutable float zoom;
+    unsigned int transitionDuration;
     World& world;
-    Plane plane;
-    Jerrycan jerrycan;
-    std::vector<Cloud> clouds;
 };
 
 #endif

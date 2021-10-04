@@ -1,10 +1,10 @@
 #ifndef _MENUSTATE_HPP
 #define _MENUSTATE_HPP
 
-#include <SFML/Graphics/Text.hpp>
 #include <list>
 #include <vector>
 #include <cstdlib>
+#include <SFML/Graphics.hpp>
 
 #include "World.hpp"
 #include "Resources.hpp"
