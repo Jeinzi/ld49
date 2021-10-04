@@ -9,7 +9,7 @@
 
 
 World::World()
-  : dayLengthMins(1), timeMins(0.45 * dayLengthMins), skyColor(50, 110, 250, 255),
+  : dayLengthMins(1), timeMins(0.45 * dayLengthMins), skyColor(sf::Color::Black),
     starField(100)
 {
   earthShape.setTexture(&Resources::getTexture("earth-1"));
@@ -18,7 +18,7 @@ World::World()
 
 
 void World::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-  target.clear(sf::Color::Black);
+  target.clear(skyColor);
   starField.draw(target, states);
   target.draw(earthShape, states);
 }
@@ -35,28 +35,6 @@ void World::update(sf::Time time) {
 
 void World::resize(sf::Vector2u const windowSize) {
   calculateEarthCenter(windowSize);
-}
-
-
-void World::calculateEarthCenter(sf::Vector2u const windowSize) {
-  float heightSide = 0.46 * windowSize.x;
-  float heightCenter = 0.5 * windowSize.x;
-  
-  // Define two points and a vector connecting them.
-  sf::Vector2f c(heightCenter, windowSize.y / 2.f);
-  sf::Vector2f s(heightSide, windowSize.y);
-  auto cs = s - c;
-
-  // Calculate normals.
-  sf::Vector2f ns(-cs.y, cs.x);
-  sf::Vector2f nc(-1, 0);
-
-  // The intersection is the point on the other side of the planet
-  // in relation to c.
-  auto r = calculateIntersection(c, s, nc, ns);
-  earthRadius = -(r.x - heightCenter) / 2;
-  earthPosition.x = heightCenter - earthRadius;
-  earthPosition.y = windowSize.y / 2.f;
 }
 
 

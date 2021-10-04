@@ -1,9 +1,8 @@
 #include "LevelState.hpp"
-#include <SFML/System/Vector2.hpp>
 
 
-LevelState::LevelState(GameStateManager& gsm, World& world)
-  : GameState(gsm), zoom(1), world(world)
+LevelState::LevelState(GameStateManager& gsm)
+  : GameState(gsm), zoom(1)
 {
   for (int i = 0; i < 7; ++i) {
     sf::Vector2f pos(rand() % 1000, rand() % 700);
@@ -29,9 +28,9 @@ void LevelState::draw(sf::RenderTarget& target, sf::RenderStates states) const {
   //zoom = 1;
   //target.setView(view);
 
-  // Draw world.
-  //target.draw(world, states);
-  target.clear(sf::Color(50, 110, 250, 255));
+  //target.clear();
+  
+  world.draw(target, states);
   for (auto const& c: clouds) {
     c.draw(target, states);
   }
@@ -44,7 +43,7 @@ void LevelState::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 
 void LevelState::update(sf::Time time) {
-  //world.update(time);
+  world.update(time);
   for (size_t i = 0; i < clouds.size(); ++i) {
     auto& c = clouds[i];
     c.update(time);
@@ -54,6 +53,11 @@ void LevelState::update(sf::Time time) {
   }
   jerrycan.update(time);
   plane.update(time);
+}
+
+
+void LevelState::resize(sf::Vector2u const windowSize) {
+  world.resize(windowSize);
 }
 
 

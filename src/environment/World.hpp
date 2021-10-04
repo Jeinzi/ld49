@@ -11,14 +11,14 @@ class World : public sf::Drawable {
   public:
     World();
 
-    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-    void update(sf::Time time);
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+    virtual void update(sf::Time time);
     void resize(sf::Vector2u const windowSize);
-    void setDayLength(float minutes);
+    //void setDayLength(float minutes);
     //void keyPressed(sf::Event event);
     //void mouseButtonPressed(sf::Event event, sf::Vector2f worldCoordinates);
 
-  private:
+  protected:
     float dayLengthMins;
     float timeMins;
     sf::Color skyColor;
@@ -27,7 +27,7 @@ class World : public sf::Drawable {
     StarField starField;
     sf::CircleShape earthShape;
 
-    void calculateEarthCenter(sf::Vector2u const windowSize);
+    virtual void calculateEarthCenter(sf::Vector2u const windowSize) = 0;
     sf::Vector2f calculateIntersection(sf::Vector2f const p1,
                                        sf::Vector2f const p2,
                                        sf::Vector2f const v1,

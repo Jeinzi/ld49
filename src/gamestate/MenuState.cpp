@@ -4,8 +4,8 @@
 #include <SFML/Audio/Sound.hpp>
 
 
-MenuState::MenuState(GameStateManager& gsm, World& world)
-  : GameState(gsm), zoom(1), selectedItem(0),  world(world),
+MenuState::MenuState(GameStateManager& gsm)
+  : GameState(gsm), zoom(1), selectedItem(0),
      menuEntryIds({"menu_start", "menu_options", "menu_highscore", "menu_about", "menu_quit"})
 {
 
@@ -25,18 +25,18 @@ void MenuState::init() {
 
 
 void MenuState::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-  target.draw(world, states);
+  world.draw(target, states);
+
+  // Get window size.
+  auto w = target.getSize().x;
+  auto h = target.getSize().y;
 
   auto oldView = target.getView();
-  auto windowSize = target.getSize();
-  sf::Vector2f viewSize(windowSize.x, windowSize.y);
-  sf::Vector2f center(windowSize.x / 2.f, windowSize.y / 2.f);
+  sf::Vector2f viewSize(w, h);
+  sf::Vector2f center(w / 2.f, h / 2.f);
   sf::View view(center, viewSize);
   target.setView(view);
 
-  // Get screen size.
-  auto w = target.getSize().x;
-  auto h = target.getSize().y;
 
   // Game title.
   sf::Text title;
@@ -81,6 +81,11 @@ void MenuState::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 void MenuState::update(sf::Time time) {
   world.update(time);
+}
+
+
+void MenuState::resize(sf::Vector2u const windowSize) {
+  world.resize(windowSize);
 }
 
 

@@ -7,7 +7,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 
-#include "World.hpp"
+#include "MenuWorld.hpp"
 #include "Resources.hpp"
 #include "GameState.hpp"
 #include "GameStateManager.hpp"
@@ -15,12 +15,13 @@
 
 class TransitionInState : public GameState {
   public:
-    TransitionInState(GameStateManager& gsm, World& world);
+    TransitionInState(GameStateManager& gsm);
     ~TransitionInState();
 
     void init() override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     void update(sf::Time time) override;
+    void resize(sf::Vector2u const windowSize) override;
     void keyPressed(sf::Event event) override;
     void mouseButtonPressed(sf::Event event, sf::Vector2f worldCoordinates) override;
 
@@ -28,7 +29,7 @@ class TransitionInState : public GameState {
     float cumulatedTransitionTime;
     mutable float zoom;
     unsigned int transitionDuration;
-    World& world;
+    MenuWorld world;
 };
 
 #endif

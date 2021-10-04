@@ -6,7 +6,6 @@
 #include "SFML/Graphics.hpp"
 
 #include "GameState.hpp"
-#include "World.hpp"
 
 class GameState;
 
@@ -28,13 +27,12 @@ class GameStateManager : public sf::Drawable {
     void keyPressed(sf::Event event);
     void mouseButtonPressed(sf::Event event, sf::Vector2f worldCoordinates);
     void mouseWheelMoved(sf::Event event);
-    void resize(sf::Vector2u const screenSize);
+    void resize(sf::Vector2u const windowSize);
     void exit();
 
   private:
     bool continueExecution;
     State currentState;
-    World world;
     std::vector<GameState*> states;
 };
 

@@ -11,11 +11,11 @@
 
 
 GameStateManager::GameStateManager()
-  : continueExecution(true), world() {
+  : continueExecution(true) {
   states.reserve(2);
-  states.push_back(new MenuState(*this, world));
-  states.push_back(new LevelState(*this, world));
-  states.push_back(new TransitionInState(*this, world));
+  states.push_back(new MenuState(*this));
+  states.push_back(new LevelState(*this));
+  states.push_back(new TransitionInState(*this));
 
   changeState(State::Menu);
 }
@@ -60,6 +60,9 @@ void GameStateManager::exit() {
   continueExecution = false;
 }
 
-void GameStateManager::resize(sf::Vector2u const screenSize) {
-  world.resize(screenSize);
+void GameStateManager::resize(sf::Vector2u const windowSize) {
+  //world.resize(screenSize);
+  for (auto& s: states) {
+    s->resize(windowSize);
+  }
 }

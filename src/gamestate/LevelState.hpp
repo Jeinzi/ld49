@@ -4,29 +4,30 @@
 #include <cstdlib>
 #include <vector>
 
-#include "World.hpp"
 #include "Plane.hpp"
 #include "Cloud.hpp"
 #include "Jerrycan.hpp"
 #include "Resources.hpp"
 #include "GameState.hpp"
+#include "LevelWorld.hpp"
 #include "GameStateManager.hpp"
 
 
 class LevelState : public GameState {
   public:
-    LevelState(GameStateManager& gsm, World& world);
+    LevelState(GameStateManager& gsm);
     ~LevelState();
 
     void init() override;
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     void update(sf::Time time) override;
+    void resize(sf::Vector2u const windowSize) override;
     void keyPressed(sf::Event event) override;
     void mouseButtonPressed(sf::Event event, sf::Vector2f worldCoordinates) override;
 
   private:
     mutable float zoom;
-    World& world;
+    LevelWorld world;
     Plane plane;
     Jerrycan jerrycan;
     std::vector<Cloud> clouds;

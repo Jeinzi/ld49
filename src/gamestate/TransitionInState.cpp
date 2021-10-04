@@ -1,10 +1,8 @@
 #include "TransitionInState.hpp"
-#include "GameState.hpp"
-#include "Resources.hpp"
 
 
-TransitionInState::TransitionInState(GameStateManager& gsm, World& world)
-  : GameState(gsm), cumulatedTransitionTime(0), zoom(1), transitionDuration(5), world(world)
+TransitionInState::TransitionInState(GameStateManager& gsm)
+  : GameState(gsm), cumulatedTransitionTime(0), zoom(1), transitionDuration(5)
 {
 
 }
@@ -46,6 +44,11 @@ void TransitionInState::update(sf::Time time) {
   if (true || cumulatedTransitionTime >= transitionDuration) {
     gsm.changeState(GameStateManager::State::Level);
   }
+}
+
+
+void TransitionInState::resize(sf::Vector2u const windowSize) {
+
 }
 
 
