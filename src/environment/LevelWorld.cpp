@@ -1,10 +1,12 @@
 #include "LevelWorld.hpp"
+#include <SFML/Graphics/Color.hpp>
+#include <cmath>
 
 
 LevelWorld::LevelWorld() {
   skyColor = sf::Color(50, 110, 250, 255);
   timeMins = 0;
-  dayLengthMins = 10;
+  dayLengthMins = 5;
 
   for (int i = 0; i < 7; ++i) {
     clouds.emplace_back();
@@ -23,6 +25,16 @@ void LevelWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 
 bool LevelWorld::update(sf::Time time) {
+  sf::Color skyColorDay(50, 110, 250, 255);
+  float arg = timeMins / dayLengthMins * 2 * M_PI + M_PI / 12 * 7;
+  float f = 1.3 * (-std::cos(arg) + 0.5);
+  f = f > 1 ? 1 : f;
+  f = f < 0 ? 0 : f;
+  float r = skyColorDay.g * f;
+  float g = skyColorDay.g * f;
+  float b = skyColorDay.b * f;
+  skyColor = sf::Color(r, g, b);
+  starField.setCutoffBrightness(f);
   World::update(time);
   earthShape.setOrigin(earthRadius, earthRadius);
   

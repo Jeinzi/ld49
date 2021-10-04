@@ -19,8 +19,10 @@ class StarField : public sf::Drawable{
     StarField(unsigned int n);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     void update(sf::Time time);
+    void setCutoffBrightness(float b);
 
   private:
+    float cutoffBrightness;
     std::vector<Star> stars;
 };
 

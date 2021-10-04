@@ -25,6 +25,9 @@ void StarField::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     rectangle.setSize(s.size);
     
     auto b = s.brightness;
+    if (b <= cutoffBrightness * 255) {
+      continue;
+    }
     rectangle.setFillColor(sf::Color(b, b, b));
 
     auto w = target.getSize().x;
@@ -39,4 +42,9 @@ void StarField::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 void StarField::update(sf::Time time) {
 
+}
+
+
+void StarField::setCutoffBrightness(float b) {
+  cutoffBrightness = b;
 }
