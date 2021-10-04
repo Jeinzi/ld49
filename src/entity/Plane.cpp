@@ -15,12 +15,14 @@ Plane::Plane()
     vMax(150), stability(-1), stabilityChange(1/60.f),
     position(0, 300), v(0, 0), planeSprite(Resources::getTexture("airship")),
     explosion("explosion", {50}), explosionSound(Resources::getSoundBuffer("explosion")),
-    fuelBar(300, 1000)
+    fuelBar(300, 1000), fuelSound(Resources::getSoundBuffer("drip"))
 {
   fuelBar.setPosition({10, 10});
   fuelBar.setSize({200, 20});
   fuelBar.setOutlineThickness(3);
   fuelBar.setFillColor(sf::Color::Yellow);
+
+  fuelSound.setVolume(50);
 
   stabilityText.setPosition({10, 40});
   stabilityText.setFont(Resources::getFont("8bit"));
@@ -167,4 +169,15 @@ void Plane::keyPressed(sf::Event e) {
   else if (e.key.code == sf::Keyboard::Down) {
     angle += da / 360 * 2 * M_PI;
   }
+}
+
+
+sf::FloatRect Plane::getBounds() const {
+  return planeSprite.getGlobalBounds();
+}
+
+
+void Plane::addFuel(float amount) {
+  fuelBar.setValue(fuelBar.getValue() + amount);
+  fuelSound.play();
 }

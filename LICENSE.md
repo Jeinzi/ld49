@@ -13,6 +13,7 @@ However, the following files are not made by me and therefore carry other licens
 
 ## Sound Effects
 - [explosion.ogg](https://freesound.org/people/tommccann/sounds/235968/) by [tommccann](https://freesound.org/people/tommccann/) is licensed under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/).
+- [drip.ogg](https://freesound.org/people/Neotone/sounds/75343/) by [Neotone](https://freesound.org/people/Neotone/) is licensed under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/).
 
 ## Fonts
 Refer to res/fonts/OFL.txt for details on the Open Font License

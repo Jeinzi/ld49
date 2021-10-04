@@ -4,6 +4,7 @@
 #include "World.hpp"
 #include "Plane.hpp"
 #include "Cloud.hpp"
+#include "Jerrycan.hpp"
 
 
 class LevelWorld : public World {
@@ -19,6 +20,7 @@ class LevelWorld : public World {
 
     Plane plane;
     std::vector<Cloud> clouds;
+    std::vector<Jerrycan> jerrycans;
 };
 
 #endif

@@ -1,6 +1,8 @@
 #ifndef _PLANE_HPP
 #define _PLANE_HPP
 
+#include <SFML/Audio/Sound.hpp>
+#include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <cmath>
 #include <SFML/System.hpp>
@@ -32,6 +34,8 @@ class Plane : public sf::Drawable {
     bool update(sf::Time time);
     void resize(sf::Vector2u const windowSize);
     void keyPressed(sf::Event e);
+    sf::FloatRect getBounds() const;
+    void addFuel(float amount);
 
   private:
     bool doExplode = false;
@@ -53,6 +57,7 @@ class Plane : public sf::Drawable {
     Animation explosion;
     sf::Sound explosionSound;
     Bar fuelBar;
+    sf::Sound fuelSound;
 };
 
 #endif

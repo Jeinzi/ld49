@@ -11,6 +11,10 @@ LevelWorld::LevelWorld() {
     clouds.emplace_back();
   }
 
+  for (int i = 0; i < 7; ++i) {
+    jerrycans.emplace_back();
+  }
+
   // The following block is duplication of the resize funtions. TODO
   calculateEarthCenter(windowSize);
   plane.resize(windowSize);
@@ -24,6 +28,10 @@ void LevelWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const {
   World::draw(target, states);
   for (auto const& c: clouds) {
     c.draw(target, states);
+  }
+
+  for (auto const& j: jerrycans) {
+    j.draw(target, states);
   }
 
   plane.draw(target, states);
@@ -53,6 +61,23 @@ bool LevelWorld::update(sf::Time time) {
     }
   }
 
+  // Jerrycans.
+  for (size_t i = 0; i < jerrycans.size(); ++i) {
+    auto& j = jerrycans[i];
+    j.update(time);
+
+    bool wasCollected = false;
+    auto br = j.getBounds();
+    if (br.intersects(plane.getBounds())) {
+      wasCollected = true;
+      plane.addFuel(150);
+    }
+
+    if (!j.isVisible() || wasCollected) {
+      j = Jerrycan();
+    }
+  }
+
   return plane.update(time);
 }
 
@@ -62,6 +87,10 @@ void LevelWorld::resize(sf::Vector2u const windowSize) {
   plane.resize(windowSize);
   for (auto& c: clouds) {
     c.resize(windowSize);
+  }
+
+  for (auto& j: jerrycans) {
+    j.resize(windowSize);
   }
 }
 
