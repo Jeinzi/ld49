@@ -1,6 +1,7 @@
 #include "LevelWorld.hpp"
 #include <SFML/Graphics/Color.hpp>
 #include <cmath>
+#include <sstream>
 
 
 LevelWorld::LevelWorld() {
@@ -21,6 +22,12 @@ LevelWorld::LevelWorld() {
   for (auto& c: clouds) {
     c.resize(windowSize);
   }
+
+
+  deathText.setPosition({windowSize.x / 2.f, windowSize.y / 2.f}); // Duplication
+  deathText.setFont(Resources::getFont("8bit"));
+  deathText.setCharacterSize(10);
+  deathText.setFillColor(sf::Color::White);
 }
 
 
@@ -35,10 +42,19 @@ void LevelWorld::draw(sf::RenderTarget& target, sf::RenderStates states) const {
   }
 
   plane.draw(target, states);
+
+  target.draw(deathText, states);
 }
 
 
 bool LevelWorld::update(sf::Time time) {
+  totalTime += time;
+  std::wstringstream ss;
+  ss.precision(3);
+  ss << Resources::getText("time_survived") << " " << totalTime.asSeconds() << "s";
+  deathText.setString(ss.str());
+
+
   sf::Color skyColorDay(50, 110, 250, 255);
   float arg = timeMins / dayLengthMins * 2 * M_PI + M_PI / 12 * 7;
   float f = 1.3 * (-std::cos(arg) + 0.5);
@@ -70,7 +86,7 @@ bool LevelWorld::update(sf::Time time) {
     auto br = j.getBounds();
     if (br.intersects(plane.getBounds())) {
       wasCollected = true;
-      plane.addFuel(150);
+      plane.addFuel(75);
     }
 
     if (!j.isVisible() || wasCollected) {
@@ -92,6 +108,9 @@ void LevelWorld::resize(sf::Vector2u const windowSize) {
   for (auto& j: jerrycans) {
     j.resize(windowSize);
   }
+
+  //deathText.setPosition({windowSize.x / 2.f, windowSize.y / 2.f});
+  deathText.setPosition({300, 10});
 }
 
 

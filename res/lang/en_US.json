@@ -4,5 +4,7 @@
   "menu_options": "Options",
   "menu_highscore": "Highscore",
   "menu_about": "About",
-  "menu_quit": "Quit"
+  "menu_quit": "Quit",
+  "time_survived": "You survived",
+  "stability": "Stability"
 }

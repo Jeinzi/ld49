@@ -5,6 +5,7 @@
 #include "Plane.hpp"
 #include "Cloud.hpp"
 #include "Jerrycan.hpp"
+#include <SFML/System/Time.hpp>
 
 
 class LevelWorld : public World {
@@ -18,6 +19,8 @@ class LevelWorld : public World {
   protected:
     void calculateEarthCenter(sf::Vector2u const windowSize) override;
 
+    sf::Time totalTime;
+    sf::Text deathText;
     Plane plane;
     std::vector<Cloud> clouds;
     std::vector<Jerrycan> jerrycans;
