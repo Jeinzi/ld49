@@ -43,12 +43,15 @@ class Plane : public sf::Drawable {
     float fuelConsumption;
     float totalTime = 0;
     float vMax;
+    float stability;
+    float stabilityChange;
     StaticStability staticStability;
     DynamicStability dynamicStability;
     sf::Vector2f position;
     sf::Vector2f v;
     sf::Vector2u windowSize;
     sf::Sprite planeSprite;
+    sf::Text stabilityText;
     Animation explosion;
     sf::Sound explosionSound;
     Bar fuelBar;

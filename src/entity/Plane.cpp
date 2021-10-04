@@ -2,19 +2,28 @@
 #include "Resources.hpp"
 #include <SFML/Audio/Music.hpp>
 #include <SFML/Audio/Sound.hpp>
+#include <SFML/Graphics/Text.hpp>
 #include <cmath>
 #include <iostream>
 #include <math.h>
+#include <sstream>
+#include <string>
 
 
 Plane::Plane()
-  : vMax(150), position(0, 300), v(0, 0), planeSprite(Resources::getTexture("airship")),
+  : vMax(150), stability(-1), stabilityChange(1/60.f),
+    position(0, 300), v(0, 0), planeSprite(Resources::getTexture("airship")),
     explosion("explosion", {50}), explosionSound(Resources::getSoundBuffer("explosion"))
 {
   fuelBar.setPosition({10, 10});
   fuelBar.setSize({200, 20});
   fuelBar.setOutlineThickness(3);
   fuelBar.setFillColor(sf::Color::Yellow);
+
+  stabilityText.setPosition({10, 40});
+  stabilityText.setFont(Resources::getFont("8bit"));
+  stabilityText.setCharacterSize(10);
+  stabilityText.setFillColor(sf::Color::White);
 
   float const s = 0.05;
   planeSprite.setScale(s, s);
@@ -24,7 +33,6 @@ Plane::Plane()
   planeSprite.setOrigin(ox, oy);
 
   explosion.setIterations(1);
-  //explosionSound.setLoop(false);
 }
 
 
@@ -47,6 +55,10 @@ void Plane::draw(sf::RenderTarget& target, sf::RenderStates states) const {
   // Fuel meter.
   fuelBar.draw(target, states);
 
+  // Stability.
+  target.draw(stabilityText, states);
+
+
   target.setView(oldView);
 }
 
@@ -67,9 +79,15 @@ bool Plane::update(sf::Time time) {
 
   // Static stability.
   //da = -k2 * angle * time.asSeconds();
+  stability += stabilityChange * time.asSeconds();
+  std::wstringstream ss;
+  ss.precision(1);
+  ss << Resources::getText("stability") << ": "
+     << stability;
+  stabilityText.setString(ss.str());
 
   // Static instability.
-  da = k2 * angle * time.asSeconds();
+  da = stability * angle * time.asSeconds();
   //std::cout << da / time.asSeconds() << std::endl;
 
   // Dynamic instability.
