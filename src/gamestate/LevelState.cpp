@@ -2,11 +2,11 @@
 #include "GameState.hpp"
 
 
-LevelState::LevelState(GameStateManager& gsm)
-  : GameState(gsm), zoom(1)
-{
-  
-}
+LevelState::LevelState(GameStateManager& gsm, sf::Vector2u const& windowSize) :
+  GameState(gsm),
+  zoom(1),
+  world(windowSize)
+{}
 
 LevelState::~LevelState() {}
 

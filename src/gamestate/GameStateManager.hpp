@@ -1,6 +1,7 @@
 #ifndef _GAMESTATEMANAGER_HPP
 #define _GAMESTATEMANAGER_HPP
 
+#include <SFML/System/Vector2.hpp>
 #include <array>
 #include "SFML/System.hpp"
 #include "SFML/Graphics.hpp"
@@ -18,7 +19,7 @@ class GameStateManager : public sf::Drawable {
       TransitionIn
     };
 
-    GameStateManager();
+    GameStateManager(sf::Vector2u const& windowSize);
     ~GameStateManager();
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -32,6 +33,7 @@ class GameStateManager : public sf::Drawable {
 
   private:
     bool continueExecution;
+    sf::Vector2u windowSize;
     State currentState;
     std::vector<GameState*> states;
 };

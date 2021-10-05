@@ -25,7 +25,7 @@ int main() {
   sf::Vector2f center(screen.width / 2.f, screen.height / 2.f);
   sf::View view(center, viewSize);
   window.setView(view);
-  GameStateManager gsm;
+  GameStateManager gsm(window.getSize());
 
   sf::Clock clock;
   while (window.isOpen()) {

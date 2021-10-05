@@ -15,7 +15,7 @@
 
 class TransitionInState : public GameState {
   public:
-    TransitionInState(GameStateManager& gsm);
+    TransitionInState(GameStateManager& gsm, sf::Vector2u const& windowSize);
     ~TransitionInState();
 
     void init() override;

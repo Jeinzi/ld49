@@ -8,11 +8,9 @@
 #include <ostream>
 
 
-sf::Vector2u World::windowSize;
-
-World::World()
+World::World(sf::Vector2u const& windowSize)
   : dayLengthMins(1), timeMins(0.45 * dayLengthMins), skyColor(sf::Color::Black),
-    starField(100)
+    windowSize(windowSize), starField(100)
 {
   earthShape.setTexture(&Resources::getTexture("earth-1"));
   earthShape.setPointCount(100);

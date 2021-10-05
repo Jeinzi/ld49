@@ -13,7 +13,7 @@
 
 class LevelState : public GameState {
   public:
-    LevelState(GameStateManager& gsm);
+    LevelState(GameStateManager& gsm, sf::Vector2u const& windowSize);
     ~LevelState();
 
     void init() override;

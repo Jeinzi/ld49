@@ -10,7 +10,7 @@
 
 class World : public sf::Drawable {
   public:
-    World();
+    World(sf::Vector2u const& windowSize);
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     virtual bool update(sf::Time time);
@@ -24,7 +24,7 @@ class World : public sf::Drawable {
     float timeMins;
     sf::Color skyColor;
     sf::Vector2f earthPosition;
-    static sf::Vector2u windowSize;
+    sf::Vector2u windowSize;
     float earthRadius;
     StarField starField;
     sf::CircleShape earthShape;

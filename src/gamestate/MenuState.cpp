@@ -4,12 +4,13 @@
 #include <SFML/Audio/Sound.hpp>
 
 
-MenuState::MenuState(GameStateManager& gsm)
-  : GameState(gsm), zoom(1), selectedItem(0),
-     menuEntryIds({"menu_start", "menu_options", "menu_highscore", "menu_about", "menu_quit"})
-{
-
-}
+MenuState::MenuState(GameStateManager& gsm, sf::Vector2u const& windowSize) :
+  GameState(gsm),
+  zoom(1),
+  selectedItem(0),
+  world(windowSize),
+  menuEntryIds({"menu_start", "menu_options", "menu_highscore", "menu_about", "menu_quit"})
+{}
 
 MenuState::~MenuState() {}
 

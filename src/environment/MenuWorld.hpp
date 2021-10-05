@@ -6,7 +6,7 @@
 
 class MenuWorld : public World {
   public:
-    //MenuWorld();
+    MenuWorld(sf::Vector2u const& windowSize);
     //void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     bool update(sf::Time time) override;
     //void resize(sf::Vector2u const windowSize) override;

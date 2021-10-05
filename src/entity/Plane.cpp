@@ -37,6 +37,7 @@ Plane::Plane()
   planeSprite.setOrigin(ox, oy);
 
   explosion.setIterations(1);
+  explosionSound.setVolume(50);
 }
 
 

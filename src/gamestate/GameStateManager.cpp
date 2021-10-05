@@ -10,12 +10,14 @@
 #include "TransitionInState.hpp"
 
 
-GameStateManager::GameStateManager()
-  : continueExecution(true) {
+GameStateManager::GameStateManager(sf::Vector2u const& windowSize) :
+  continueExecution(true),
+  windowSize(windowSize)
+{
   states.reserve(2);
-  states.push_back(new MenuState(*this));
-  states.push_back(new LevelState(*this));
-  states.push_back(new TransitionInState(*this));
+  states.push_back(new MenuState(*this, windowSize));
+  states.push_back(new LevelState(*this, windowSize));
+  states.push_back(new TransitionInState(*this, windowSize));
 
   changeState(State::Menu);
 }
@@ -39,7 +41,7 @@ bool GameStateManager::update(sf::Time time) {
 void GameStateManager::changeState(State state, bool renewCurrentState) {
   if (renewCurrentState) {
     delete states[(int)currentState];
-    states[(int)currentState] = new LevelState(*this); // TODO this doesn't work generally
+    states[(int)currentState] = new LevelState(*this, windowSize); // TODO this doesn't work generally
   }
   currentState = state;
   states[(int)currentState]->init();
@@ -65,7 +67,7 @@ void GameStateManager::exit() {
 }
 
 void GameStateManager::resize(sf::Vector2u const windowSize) {
-  //world.resize(screenSize);
+  this->windowSize = windowSize;
   for (auto& s: states) {
     s->resize(windowSize);
   }

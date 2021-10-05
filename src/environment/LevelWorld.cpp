@@ -4,7 +4,9 @@
 #include <sstream>
 
 
-LevelWorld::LevelWorld() {
+LevelWorld::LevelWorld(sf::Vector2u const& windowSize)
+  : World(windowSize)
+{
   timeMins = 0;
   dayLengthMins = 5;
 

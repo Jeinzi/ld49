@@ -1,6 +1,12 @@
 #include "MenuWorld.hpp"
 
 
+MenuWorld::MenuWorld(sf::Vector2u const& windowSize)
+  : World(windowSize)
+{
+  calculateEarthCenter(windowSize);
+}
+
 bool MenuWorld::update(sf::Time time) {
   World::update(time);
   earthShape.setOrigin(0.9 * earthRadius, 0.9 * earthRadius);

@@ -15,7 +15,7 @@
 
 class MenuState : public GameState {
   public:
-    MenuState(GameStateManager& gsm);
+    MenuState(GameStateManager& gsm, sf::Vector2u const& windowSize);
     ~MenuState();
 
     void init() override;

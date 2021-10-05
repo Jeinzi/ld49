@@ -12,7 +12,7 @@
 
 class LevelWorld : public World {
   public:
-    LevelWorld();
+    LevelWorld(sf::Vector2u const& windowSize);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     bool update(sf::Time time) override;
     void resize(sf::Vector2u const windowSize) override;

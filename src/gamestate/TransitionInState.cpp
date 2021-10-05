@@ -1,11 +1,13 @@
 #include "TransitionInState.hpp"
 
 
-TransitionInState::TransitionInState(GameStateManager& gsm)
-  : GameState(gsm), cumulatedTransitionTime(0), zoom(1), transitionDuration(5)
-{
-
-}
+TransitionInState::TransitionInState(GameStateManager& gsm, sf::Vector2u const& windowSize) :
+  GameState(gsm),
+  cumulatedTransitionTime(0),
+  zoom(1),
+  transitionDuration(5),
+  world(windowSize)
+{}
 
 TransitionInState::~TransitionInState() {}
 
