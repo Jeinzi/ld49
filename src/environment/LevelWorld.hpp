@@ -1,11 +1,13 @@
 #ifndef _LEVELWORLD_HPP
 #define _LEVELWORLD_HPP
 
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
+
 #include "World.hpp"
 #include "Plane.hpp"
 #include "Cloud.hpp"
 #include "Jerrycan.hpp"
-#include <SFML/System/Time.hpp>
 
 
 class LevelWorld : public World {
