@@ -26,7 +26,7 @@ LevelWorld::LevelWorld(sf::Vector2u const& windowSize)
   }
 
 
-  deathText.setPosition({windowSize.x / 2.f, windowSize.y / 2.f}); // Duplication
+  deathText.setPosition({10, 60}); // Duplication TODO
   deathText.setFont(Resources::getFont("8bit"));
   deathText.setCharacterSize(10);
   deathText.setFillColor(sf::Color::White);
@@ -112,7 +112,7 @@ void LevelWorld::resize(sf::Vector2u const windowSize) {
   }
 
   //deathText.setPosition({windowSize.x / 2.f, windowSize.y / 2.f});
-  deathText.setPosition({300, 10});
+  deathText.setPosition({10, 60});
 }
 
 

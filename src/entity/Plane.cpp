@@ -164,10 +164,14 @@ void Plane::resize(sf::Vector2u const windowSize) {
 
 void Plane::keyPressed(sf::Event e) {
   float da = 3;
-  if (e.key.code == sf::Keyboard::Up) {
+  if (e.key.code == sf::Keyboard::Up ||
+      e.key.code == sf::Keyboard::W)
+  {
     angle -= da / 360 * 2 * M_PI;
   }
-  else if (e.key.code == sf::Keyboard::Down) {
+  else if (e.key.code == sf::Keyboard::Down ||
+           e.key.code == sf::Keyboard::S)
+  {
     angle += da / 360 * 2 * M_PI;
   }
 }
