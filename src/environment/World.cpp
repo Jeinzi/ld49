@@ -2,6 +2,7 @@
 #include "Resources.hpp"
 
 #include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <cmath>
 #include <iostream>
@@ -12,7 +13,12 @@ World::World(sf::Vector2u const& windowSize)
   : dayLengthMins(1), timeMins(0.45 * dayLengthMins), skyColor(sf::Color::Black),
     windowSize(windowSize), starField(100)
 {
-  earthShape.setTexture(&Resources::getTexture("earth-1"));
+  if (sf::Texture::getMaximumSize() < 4000) {
+    earthShape.setTexture(&Resources::getTexture("earth-1-1024"));
+  }
+  else {
+    earthShape.setTexture(&Resources::getTexture("earth-1"));
+  }
   earthShape.setPointCount(100);
 }
 

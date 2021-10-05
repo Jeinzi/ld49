@@ -29,6 +29,7 @@ void Resources::load() {
   textures["airship"].loadFromFile("res/sprites/airship.png");
   //textures["beluga"].loadFromFile("res/sprites/beluga.png");
   textures["earth-1"].loadFromFile("res/sprites/earth-1.png");
+  textures["earth-1-1024"].loadFromFile("res/sprites/earth-1-1024.png");
   textures["jerrycan"].loadFromFile("res/sprites/jerrycan.png");
   textures["cloud-0"].loadFromFile("res/sprites/cloud-0.png");
   textures["cloud-1"].loadFromFile("res/sprites/cloud-1.png");
